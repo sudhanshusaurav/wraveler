@@ -4,7 +4,7 @@ export const TRIP_ACTIONS = {
 };
 
 export const initialTripState = {
-  tripDetails: '',
+  trips: '',
   error: null,
 };
 
@@ -12,7 +12,7 @@ export const tripDetailsReducer = (state, action) => {
   switch (action.type) {
     case TRIP_ACTIONS.SUCCESS:
       return {
-        tripDetails: action.payload,
+        trips: action.payload,
       };
 
     case TRIP_ACTIONS.ERROR:

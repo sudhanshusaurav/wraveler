@@ -185,14 +185,14 @@ function App() {
     },
   ];
 
-  const renderTripCards = tripData.map((trip) => {
+  const renderTripCards = tripState.trips.data.map((trip) => {
     return <TripCard key={trip.id} trip={trip} />;
   });
 
   return (
     <div className='App'>
       <div className='container mx-auto flex gap-8 flex-wrap p-8 justify-between'>
-        {renderTripCards}
+        {tripState && tripState.trips.data && <>{renderTripCards}</>}
       </div>
     </div>
   );

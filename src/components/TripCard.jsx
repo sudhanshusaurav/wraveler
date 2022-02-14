@@ -26,8 +26,8 @@ function TripCard({ trip }) {
       return data.mouseY / data.height;
     };
     const cardStyle = () => {
-      const rX = mousePX() * 20;
-      const rY = mousePY() * -20;
+      const rX = mousePX() * 10;
+      const rY = mousePY() * -10;
       return `rotateY(${rX}deg) rotateX(${rY}deg)`;
     };
     const cardBgTransform = () => {
