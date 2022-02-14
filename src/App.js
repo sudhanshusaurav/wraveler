@@ -1,13 +1,14 @@
 import { useEffect, useReducer } from 'react';
 import { getAllTrips } from './services/TripServices';
-import {
-  TRIP_ACTIONS,
-  initialTripState,
-  tripDetailsReducer,
-} from './reducers/TripReducer';
+import { TRIP_ACTIONS, tripDetailsReducer } from './reducers/TripReducer';
 import TripCard from './components/TripCard';
 
 function App() {
+  const initialTripState = {
+    trips: '',
+    error: null,
+  };
+
   const [tripState, dispatch] = useReducer(
     tripDetailsReducer,
     initialTripState
@@ -184,15 +185,14 @@ function App() {
       ],
     },
   ];
-
-  const renderTripCards = tripState.trips.data.map((trip) => {
-    return <TripCard key={trip.id} trip={trip} />;
-  });
-
   return (
     <div className='App'>
       <div className='container mx-auto flex gap-8 flex-wrap p-8 justify-between'>
-        {tripState && tripState.trips.data && <>{renderTripCards}</>}
+        {tripState.trips &&
+          tripState.trips.data &&
+          tripState.trips.data.map((trip) => {
+            return <TripCard key={trip.id} trip={trip} />;
+          })}
       </div>
     </div>
   );

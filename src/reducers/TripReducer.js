@@ -3,11 +3,6 @@ export const TRIP_ACTIONS = {
   ERROR: 'error',
 };
 
-export const initialTripState = {
-  trips: '',
-  error: null,
-};
-
 export const tripDetailsReducer = (state, action) => {
   switch (action.type) {
     case TRIP_ACTIONS.SUCCESS:

@@ -31,8 +31,8 @@ function TripCard({ trip }) {
       return `rotateY(${rX}deg) rotateX(${rY}deg)`;
     };
     const cardBgTransform = () => {
-      const tX = mousePX() * -40;
-      const tY = mousePY() * -40;
+      const tX = mousePX() * -20;
+      const tY = mousePY() * -20;
       return `translateX(${tX}px) translateY(${tY}px)`;
     };
 
@@ -79,7 +79,7 @@ function TripCard({ trip }) {
 
     return (
       <>
-        {trip.eventdates.length - 1 === index
+        {trip.eventdates.length - 1 === index && index < 4
           ? `${formatted_date}`
           : `${formatted_date}, `}
       </>
@@ -90,7 +90,7 @@ function TripCard({ trip }) {
   return (
     <div
       ref={card}
-      className={`lg:max-w-[30%] bg-black/10 lg:basis-[30%] md:basis-[45%] md:max-w-[45%] basis-[100%] max-w-[100%] lg:h-[65vh] md:h-[50vh] h-[80vh] rounded-lg relative p-1 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300`}
+      className={`lg:max-w-[30%] bg-black/10 lg:basis-[30%] md:basis-[45%] md:max-w-[45%] basis-[100%] max-w-[100%] lg:h-[75vh] md:h-[50vh] h-[80vh] rounded-lg relative p-1 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300`}
     >
       <div className='w-full h-full border rounded-lg p-4'>
         <div className='flex w-full h-full flex-col justify-between relative'>
@@ -100,7 +100,7 @@ function TripCard({ trip }) {
             </span>
             <span className='bg-white rounded-sm px-2 backdrop-blur-sm text-blue-700 font-semibold'>
               &#x20b9;
-              <span className='text-sm line-through text-blue-500'>
+              <span className='text-sm line-through text-blue-500 mx-1'>
                 {trip.price}
               </span>
               {trip.offer_price}
@@ -111,17 +111,18 @@ function TripCard({ trip }) {
               {trip.title}
             </h1>
 
-            <div className='flex gap-1 items-center backdrop-blur-sm font-semibold text-sm text-white my-2'>
+            <div className='flex gap-1 items-center font-semibold text-sm text-white my-2'>
               <FaMapMarkerAlt /> {trip.pick_drop}
             </div>
-            <div className='flex gap-1 items-center text-blue-900 font-semibold text-sm'>
-              <BsFillCalendar3WeekFill /> <span>{renderEventDates}</span>
+            <div className='flex gap-1 items-center text-white font-semibold text-[12px]'>
+              <BsFillCalendar3WeekFill />{' '}
+              <span className='truncate w-3/4'>{renderEventDates}</span>
             </div>
 
             <div className='flex flex-col absolute right-0 bottom-0 items-center gap-2 justify-end text-sm'>
               {trip.included.food && (
                 <div
-                  className='border-[1.5px] border-black p-[2px]'
+                  className='border-[1.5px] text-white p-[2px]'
                   title='Meals Included'
                 >
                   <ImSpoonKnife />
@@ -129,7 +130,7 @@ function TripCard({ trip }) {
               )}
               {trip.included.accomodation && (
                 <div
-                  className='border-[1.5px] border-black p-[2px]'
+                  className='border-[1.5px] text-white p-[2px]'
                   title='Stay Included'
                 >
                   <MdLocalHotel />
@@ -137,7 +138,7 @@ function TripCard({ trip }) {
               )}
               {trip.included.transportation && (
                 <div
-                  className='border-[1.5px] border-black p-[2px]'
+                  className='border-[1.5px] text-white p-[2px]'
                   title='Travel Included'
                 >
                   <AiFillCar />
