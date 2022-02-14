@@ -1,23 +1,199 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useReducer } from 'react';
+import { getAllTrips } from './services/TripServices';
+import {
+  TRIP_ACTIONS,
+  initialTripState,
+  tripDetailsReducer,
+} from './reducers/TripReducer';
+import TripCard from './components/TripCard';
 
 function App() {
+  const [tripState, dispatch] = useReducer(
+    tripDetailsReducer,
+    initialTripState
+  );
+
+  useEffect(() => {
+    getAllTrips().then((res) => {
+      if (res.status === 200) {
+        dispatch({ type: TRIP_ACTIONS.SUCCESS, payload: res.data });
+        return;
+      }
+      console.log(res.error);
+      dispatch({ type: TRIP_ACTIONS.ERROR, error: res.error });
+    });
+  }, []);
+
+  console.log(tripState);
+
+  const tripData = [
+    {
+      id: '434',
+      location: 'Spiti',
+      state: 'Himachal Pradesh',
+      title: 'Spiti winter Expedition 4X4',
+      slug: 'Spiti-winter-Expedition-4X4',
+      category: 'road-trip backpacking expedition',
+      description:
+        "<p>A cold desert adorned by mountainous valleys is how one describes Spiti Valley in a nutshell but in its embrace, one can find some of the most surreal panoramic views, ancient monasteries offering you serenity and an abundance of trekking trails.</p><p>Life moves at a slow pace in the “middle land” with herds of Himalayan blue sheep nibbling on grass, the local farmers collecting their crops and monks silently chanting the name of Buddha in the form of a sacred prayer. The air is different in Spiti, pure and filled with peace. Simply breathing it in would rejuvenate your inner self and it’s an experience worth having.&nbsp;</p><p>However with this<strong> Spiti winter expedition 4x4,</strong> we show you a different side of Spiti. We take you to a different world altogether , a world where you get to witness the magic of nature in the form of mesmerizing valleys, majestic mountains, and wicked trails all covered in a thick blanket of snow that is spread throughout the land, as far as your eyes can see.&nbsp;</p><p>In this <strong>Spiti winter expedition, </strong>we spice things up even more by increasing the stakes. It is no secret that the roads of Spiti valley are hostile at best, the paths seemed to be carved out with a ruggedness that isn't found in many places and yet there is no greater feeling than off-roading on these tough terrains.&nbsp;</p><p>It's a challenge worth taking up on but only for those who are bold enough to do it. Since normal tempo travelers don't give the adventure enthusiasts the adrenaline rush that comes with driving on the rocky trails, we take things up a notch by taking you on a road trip to Spiti Valley by 4 wheelers<strong> </strong>which means it's a four wheel drive to Spiti all the way from Delhi<strong> </strong>in a vehicle that can overcome all the hurdles that the roads of Spiti has to offer.</p><p>We begin our journey from Delhi to Shimla where the trip captains conduct a brief session and provide all the necessary information that you’d need to know before embarking on the trip. The route from Shimla is better when it comes to Spiti winter expeditions. One of the reasons being the scenic views but also because the slow and steady ascend to higher altitude will make your body adapt to your surroundings. As our next stop Chitkul is situated at a height of more than 11,000ft, it's better to take the Hindustan - Tibet highway for better acclimatization.&nbsp;&nbsp;</p><p><strong>Chitkul</strong> is renowned for being the last village of India and has gained a lot of popularity among travelers, but it's only when people visit the village and breathe in the fresh air, do they realize that the best part about this hamlet is that it has the cleanest air in the entire country. It is, quite literally, a breath of fresh air that one appreciates after spending most of their days in the metropolitan cities.&nbsp;</p><p>We know that every trip becomes ten times more memorable when you have people to share your exciting experiences with, to share stories with people who share the same passion that you do and to make sure that you get to form connections with fellow travelers, we indulge in group bonding activities. The best part about these activities is that after indulging in these games, people become more comfortable with each other and a sense of ease fills everyone, making the long journey ahead seem short and sweet.&nbsp;</p><p>Our next destination <strong>Kalpa </strong>is known for its picturesque landscapes but the trail leading up to it is equally beautiful. The town of Reckong Peo in Kinnaur, famous for its apple orchards and rich culture that has been preserved by the locals for years serves as an excellent pit stop. Not to mention that it gives a small glimpse into the journey that awaits us. Upon reaching Kalpa, we make sure that you get to explore some of the best places in<strong> </strong>Kalpa including the 3000 year old Kalpa monastery and the suicide point which is named so because of the fear it induces in the heart of the travelers with it's steep cliff and narrow roads. Not to mention that on one end, standing mighty are rugged mountains.&nbsp;</p><p>The view from suicide point is to die for and since during this winter expedition to Spiti valley, the entire Kinnaur ranges will be covered in snow, the landscape would be more beautiful than any words can ever describe.</p><p>After spending a night in Kalpa surrounded by snow laden mountains, we will be moving towards our next destination which is<strong> Nako</strong>. Providing the best site for a pit-stop is the tiny hamlet of Khab which serves as the confluence of the Sutlej and Spiti river. Even though it is just a stop along the way, driving through a snow covered<strong> Khab </strong>with the river flowing alongside makes it one of the best parts of this Spiti winter expedition.&nbsp;&nbsp;</p><p>Our next stop, Nako which is nestled in the heart of the trans Himalayan ranges in the Hangrang Valley with Reo Purgyal as its backdrop, is surely going to take your breath away. The tiny hamlet is situated on the Indo-China Border with the serene Nako lake and the 11th century Nako monastery in its embrace. The influence of Buddhism is ever present in the valley but it's only when you are in these villages, meeting the locals, getting in touch with their customs and learning their stories, do you start to feel the true essence of Spiti Valley filling you from within.</p><p><strong>Kaza</strong>, our next destination is where you will see a blend of white landscapes that involve majestic mountains, meadows, streams and even barren terrains all adorned by the snow. The monochromatic contrast of the whiteness of the snow against the cobalt blue skies is truly breathtaking and when you are in the very center of such a magical wonder, all kinds of emotion run through you. Kaza is known for its vibrant festivities, its monasteries and its rich culture. As well as being the heart of Spiti, it is also the commercial center of the valley and the link between the different districts.&nbsp;&nbsp;&nbsp;</p><p>Finally, after overcoming all the bumps in the road, we will be in the center of it all, experiencing the winter wonderland that is Spiti in all its glory. Under the starry night skies, surrounded by lofty mountains that no longer have a patch of brown on them, with the pearly snowflakes replacing any signs of dusty terrains, it is then, in that moment, that this Spiti winter expedition will truly make you feel alive and free.&nbsp;</p><p>We will visit all the places that cross people's minds when they hear the name “Spiti” during our sightseeing tour. The <strong>Key Monastery</strong>, locally known as Kye Gompa which was established in the 11th century and still stands tall, like a bejeweled crown adorning Spiti valley. The <strong>Chicham Bridge</strong> which is the highest bridge of Asia and is situated 1000 ft above a deep gorge that flows relentlessly.<strong> Komic</strong>, which is truly one of the most beautiful villages of our country remains unexplored by many travelers but on this trip, you will get the chance to experience life at a different pace in one of the highest villages in India.</p><p><strong>Hikkim</strong>, with its highest post office in the world, will take you back to the good old days when people penned down their emotions on paper and confessed their love in the form of letters. The best part is that the post office is functional and if you are an old school soul, you can send a letter to someone and show them just what heights you will go to, for them.&nbsp;</p><p>We save the most iconic spot for the last and solely for the purpose of making sure that you get to cherish the moment for years to come. <strong>Langza</strong>, home to fossils of many seabed plants serves as the last stop of our Spiti winter expedition. Located on top of a hill, overlooking this tiny hamlet is the statue of Budhha that locals believe protects them from all evil. The colorful statue being the tallest structure in the village does seem like a fierce protector.&nbsp;</p><p>If we were to describe this Spiti valley winter expedition, we'd say that it<strong> </strong>is your ticket to a unique getaway that is a blend of both adventure and serenity. It's an experience worth having and definitely something that a traveler should tick off their bucket list as soon as possible.&nbsp;</p><p>Although there is no way in which Spiti can ever be less beautiful or charming, we personally believe that the snow makes it more magical than it is, adding more to its eternal beauty. Hence the best time to visit Spiti,<strong> </strong>especially when it comes to 4x4 Spiti winter expeditions, is from the months of January to March.&nbsp;</p>",
+      image:
+        'https://www.justwravel.com/uploads/package/original/main-banner/Spiti-winter-Expedition-4X4-JustWravel-1642073759.jpg',
+      included: {
+        transportation: true,
+        accomodation: true,
+        food: true,
+      },
+      numofdays: '9',
+      price: '38000',
+      offer_price: '34000',
+      pick_drop: 'Delhi to Delhi',
+      country: 'India',
+      trek_difficulty: '',
+      best_sellers: '0',
+      eventid: '4029',
+      startdate: '2022-02-19',
+      startmonth: 'February',
+      lastdate: '2022-02-27',
+      itinerary_key: '0',
+      eventdates: [
+        {
+          id: '4029',
+          startdate: '2022-02-19',
+          lastdate: '2022-02-27',
+          packageid: '435',
+          itinerary_key: '0',
+          seat: '2',
+        },
+      ],
+    },
+    {
+      id: '433',
+      location: 'Spiti',
+      state: 'Himachal Pradesh',
+      title: 'Spiti winter Expedition 4X4',
+      slug: 'Spiti-winter-Expedition-4X4',
+      category: 'road-trip backpacking expedition',
+      description:
+        "<p>A cold desert adorned by mountainous valleys is how one describes Spiti Valley in a nutshell but in its embrace, one can find some of the most surreal panoramic views, ancient monasteries offering you serenity and an abundance of trekking trails.</p><p>Life moves at a slow pace in the “middle land” with herds of Himalayan blue sheep nibbling on grass, the local farmers collecting their crops and monks silently chanting the name of Buddha in the form of a sacred prayer. The air is different in Spiti, pure and filled with peace. Simply breathing it in would rejuvenate your inner self and it’s an experience worth having.&nbsp;</p><p>However with this<strong> Spiti winter expedition 4x4,</strong> we show you a different side of Spiti. We take you to a different world altogether , a world where you get to witness the magic of nature in the form of mesmerizing valleys, majestic mountains, and wicked trails all covered in a thick blanket of snow that is spread throughout the land, as far as your eyes can see.&nbsp;</p><p>In this <strong>Spiti winter expedition, </strong>we spice things up even more by increasing the stakes. It is no secret that the roads of Spiti valley are hostile at best, the paths seemed to be carved out with a ruggedness that isn't found in many places and yet there is no greater feeling than off-roading on these tough terrains.&nbsp;</p><p>It's a challenge worth taking up on but only for those who are bold enough to do it. Since normal tempo travelers don't give the adventure enthusiasts the adrenaline rush that comes with driving on the rocky trails, we take things up a notch by taking you on a road trip to Spiti Valley by 4 wheelers<strong> </strong>which means it's a four wheel drive to Spiti all the way from Delhi<strong> </strong>in a vehicle that can overcome all the hurdles that the roads of Spiti has to offer.</p><p>We begin our journey from Delhi to Shimla where the trip captains conduct a brief session and provide all the necessary information that you’d need to know before embarking on the trip. The route from Shimla is better when it comes to Spiti winter expeditions. One of the reasons being the scenic views but also because the slow and steady ascend to higher altitude will make your body adapt to your surroundings. As our next stop Chitkul is situated at a height of more than 11,000ft, it's better to take the Hindustan - Tibet highway for better acclimatization.&nbsp;&nbsp;</p><p><strong>Chitkul</strong> is renowned for being the last village of India and has gained a lot of popularity among travelers, but it's only when people visit the village and breathe in the fresh air, do they realize that the best part about this hamlet is that it has the cleanest air in the entire country. It is, quite literally, a breath of fresh air that one appreciates after spending most of their days in the metropolitan cities.&nbsp;</p><p>We know that every trip becomes ten times more memorable when you have people to share your exciting experiences with, to share stories with people who share the same passion that you do and to make sure that you get to form connections with fellow travelers, we indulge in group bonding activities. The best part about these activities is that after indulging in these games, people become more comfortable with each other and a sense of ease fills everyone, making the long journey ahead seem short and sweet.&nbsp;</p><p>Our next destination <strong>Kalpa </strong>is known for its picturesque landscapes but the trail leading up to it is equally beautiful. The town of Reckong Peo in Kinnaur, famous for its apple orchards and rich culture that has been preserved by the locals for years serves as an excellent pit stop. Not to mention that it gives a small glimpse into the journey that awaits us. Upon reaching Kalpa, we make sure that you get to explore some of the best places in<strong> </strong>Kalpa including the 3000 year old Kalpa monastery and the suicide point which is named so because of the fear it induces in the heart of the travelers with it's steep cliff and narrow roads. Not to mention that on one end, standing mighty are rugged mountains.&nbsp;</p><p>The view from suicide point is to die for and since during this winter expedition to Spiti valley, the entire Kinnaur ranges will be covered in snow, the landscape would be more beautiful than any words can ever describe.</p><p>After spending a night in Kalpa surrounded by snow laden mountains, we will be moving towards our next destination which is<strong> Nako</strong>. Providing the best site for a pit-stop is the tiny hamlet of Khab which serves as the confluence of the Sutlej and Spiti river. Even though it is just a stop along the way, driving through a snow covered<strong> Khab </strong>with the river flowing alongside makes it one of the best parts of this Spiti winter expedition.&nbsp;&nbsp;</p><p>Our next stop, Nako which is nestled in the heart of the trans Himalayan ranges in the Hangrang Valley with Reo Purgyal as its backdrop, is surely going to take your breath away. The tiny hamlet is situated on the Indo-China Border with the serene Nako lake and the 11th century Nako monastery in its embrace. The influence of Buddhism is ever present in the valley but it's only when you are in these villages, meeting the locals, getting in touch with their customs and learning their stories, do you start to feel the true essence of Spiti Valley filling you from within.</p><p><strong>Kaza</strong>, our next destination is where you will see a blend of white landscapes that involve majestic mountains, meadows, streams and even barren terrains all adorned by the snow. The monochromatic contrast of the whiteness of the snow against the cobalt blue skies is truly breathtaking and when you are in the very center of such a magical wonder, all kinds of emotion run through you. Kaza is known for its vibrant festivities, its monasteries and its rich culture. As well as being the heart of Spiti, it is also the commercial center of the valley and the link between the different districts.&nbsp;&nbsp;&nbsp;</p><p>Finally, after overcoming all the bumps in the road, we will be in the center of it all, experiencing the winter wonderland that is Spiti in all its glory. Under the starry night skies, surrounded by lofty mountains that no longer have a patch of brown on them, with the pearly snowflakes replacing any signs of dusty terrains, it is then, in that moment, that this Spiti winter expedition will truly make you feel alive and free.&nbsp;</p><p>We will visit all the places that cross people's minds when they hear the name “Spiti” during our sightseeing tour. The <strong>Key Monastery</strong>, locally known as Kye Gompa which was established in the 11th century and still stands tall, like a bejeweled crown adorning Spiti valley. The <strong>Chicham Bridge</strong> which is the highest bridge of Asia and is situated 1000 ft above a deep gorge that flows relentlessly.<strong> Komic</strong>, which is truly one of the most beautiful villages of our country remains unexplored by many travelers but on this trip, you will get the chance to experience life at a different pace in one of the highest villages in India.</p><p><strong>Hikkim</strong>, with its highest post office in the world, will take you back to the good old days when people penned down their emotions on paper and confessed their love in the form of letters. The best part is that the post office is functional and if you are an old school soul, you can send a letter to someone and show them just what heights you will go to, for them.&nbsp;</p><p>We save the most iconic spot for the last and solely for the purpose of making sure that you get to cherish the moment for years to come. <strong>Langza</strong>, home to fossils of many seabed plants serves as the last stop of our Spiti winter expedition. Located on top of a hill, overlooking this tiny hamlet is the statue of Budhha that locals believe protects them from all evil. The colorful statue being the tallest structure in the village does seem like a fierce protector.&nbsp;</p><p>If we were to describe this Spiti valley winter expedition, we'd say that it<strong> </strong>is your ticket to a unique getaway that is a blend of both adventure and serenity. It's an experience worth having and definitely something that a traveler should tick off their bucket list as soon as possible.&nbsp;</p><p>Although there is no way in which Spiti can ever be less beautiful or charming, we personally believe that the snow makes it more magical than it is, adding more to its eternal beauty. Hence the best time to visit Spiti,<strong> </strong>especially when it comes to 4x4 Spiti winter expeditions, is from the months of January to March.&nbsp;</p>",
+      image:
+        'https://www.justwravel.com/uploads/package/original/main-banner/Spiti-winter-Expedition-4X4-JustWravel-1642073759.jpg',
+      included: {
+        transportation: true,
+        accomodation: true,
+        food: true,
+      },
+      numofdays: '9',
+      price: '38000',
+      offer_price: '34000',
+      pick_drop: 'Delhi to Delhi',
+      country: 'India',
+      trek_difficulty: '',
+      best_sellers: '0',
+      eventid: '4029',
+      startdate: '2022-02-19',
+      startmonth: 'February',
+      lastdate: '2022-02-27',
+      itinerary_key: '0',
+      eventdates: [
+        {
+          id: '4029',
+          startdate: '2022-02-19',
+          lastdate: '2022-02-27',
+          packageid: '435',
+          itinerary_key: '0',
+          seat: '2',
+        },
+      ],
+    },
+    {
+      id: '432',
+      location: 'Spiti',
+      state: 'Himachal Pradesh',
+      title: 'Spiti winter Expedition 4X4',
+      slug: 'Spiti-winter-Expedition-4X4',
+      category: 'road-trip backpacking expedition',
+      description:
+        "<p>A cold desert adorned by mountainous valleys is how one describes Spiti Valley in a nutshell but in its embrace, one can find some of the most surreal panoramic views, ancient monasteries offering you serenity and an abundance of trekking trails.</p><p>Life moves at a slow pace in the “middle land” with herds of Himalayan blue sheep nibbling on grass, the local farmers collecting their crops and monks silently chanting the name of Buddha in the form of a sacred prayer. The air is different in Spiti, pure and filled with peace. Simply breathing it in would rejuvenate your inner self and it’s an experience worth having.&nbsp;</p><p>However with this<strong> Spiti winter expedition 4x4,</strong> we show you a different side of Spiti. We take you to a different world altogether , a world where you get to witness the magic of nature in the form of mesmerizing valleys, majestic mountains, and wicked trails all covered in a thick blanket of snow that is spread throughout the land, as far as your eyes can see.&nbsp;</p><p>In this <strong>Spiti winter expedition, </strong>we spice things up even more by increasing the stakes. It is no secret that the roads of Spiti valley are hostile at best, the paths seemed to be carved out with a ruggedness that isn't found in many places and yet there is no greater feeling than off-roading on these tough terrains.&nbsp;</p><p>It's a challenge worth taking up on but only for those who are bold enough to do it. Since normal tempo travelers don't give the adventure enthusiasts the adrenaline rush that comes with driving on the rocky trails, we take things up a notch by taking you on a road trip to Spiti Valley by 4 wheelers<strong> </strong>which means it's a four wheel drive to Spiti all the way from Delhi<strong> </strong>in a vehicle that can overcome all the hurdles that the roads of Spiti has to offer.</p><p>We begin our journey from Delhi to Shimla where the trip captains conduct a brief session and provide all the necessary information that you’d need to know before embarking on the trip. The route from Shimla is better when it comes to Spiti winter expeditions. One of the reasons being the scenic views but also because the slow and steady ascend to higher altitude will make your body adapt to your surroundings. As our next stop Chitkul is situated at a height of more than 11,000ft, it's better to take the Hindustan - Tibet highway for better acclimatization.&nbsp;&nbsp;</p><p><strong>Chitkul</strong> is renowned for being the last village of India and has gained a lot of popularity among travelers, but it's only when people visit the village and breathe in the fresh air, do they realize that the best part about this hamlet is that it has the cleanest air in the entire country. It is, quite literally, a breath of fresh air that one appreciates after spending most of their days in the metropolitan cities.&nbsp;</p><p>We know that every trip becomes ten times more memorable when you have people to share your exciting experiences with, to share stories with people who share the same passion that you do and to make sure that you get to form connections with fellow travelers, we indulge in group bonding activities. The best part about these activities is that after indulging in these games, people become more comfortable with each other and a sense of ease fills everyone, making the long journey ahead seem short and sweet.&nbsp;</p><p>Our next destination <strong>Kalpa </strong>is known for its picturesque landscapes but the trail leading up to it is equally beautiful. The town of Reckong Peo in Kinnaur, famous for its apple orchards and rich culture that has been preserved by the locals for years serves as an excellent pit stop. Not to mention that it gives a small glimpse into the journey that awaits us. Upon reaching Kalpa, we make sure that you get to explore some of the best places in<strong> </strong>Kalpa including the 3000 year old Kalpa monastery and the suicide point which is named so because of the fear it induces in the heart of the travelers with it's steep cliff and narrow roads. Not to mention that on one end, standing mighty are rugged mountains.&nbsp;</p><p>The view from suicide point is to die for and since during this winter expedition to Spiti valley, the entire Kinnaur ranges will be covered in snow, the landscape would be more beautiful than any words can ever describe.</p><p>After spending a night in Kalpa surrounded by snow laden mountains, we will be moving towards our next destination which is<strong> Nako</strong>. Providing the best site for a pit-stop is the tiny hamlet of Khab which serves as the confluence of the Sutlej and Spiti river. Even though it is just a stop along the way, driving through a snow covered<strong> Khab </strong>with the river flowing alongside makes it one of the best parts of this Spiti winter expedition.&nbsp;&nbsp;</p><p>Our next stop, Nako which is nestled in the heart of the trans Himalayan ranges in the Hangrang Valley with Reo Purgyal as its backdrop, is surely going to take your breath away. The tiny hamlet is situated on the Indo-China Border with the serene Nako lake and the 11th century Nako monastery in its embrace. The influence of Buddhism is ever present in the valley but it's only when you are in these villages, meeting the locals, getting in touch with their customs and learning their stories, do you start to feel the true essence of Spiti Valley filling you from within.</p><p><strong>Kaza</strong>, our next destination is where you will see a blend of white landscapes that involve majestic mountains, meadows, streams and even barren terrains all adorned by the snow. The monochromatic contrast of the whiteness of the snow against the cobalt blue skies is truly breathtaking and when you are in the very center of such a magical wonder, all kinds of emotion run through you. Kaza is known for its vibrant festivities, its monasteries and its rich culture. As well as being the heart of Spiti, it is also the commercial center of the valley and the link between the different districts.&nbsp;&nbsp;&nbsp;</p><p>Finally, after overcoming all the bumps in the road, we will be in the center of it all, experiencing the winter wonderland that is Spiti in all its glory. Under the starry night skies, surrounded by lofty mountains that no longer have a patch of brown on them, with the pearly snowflakes replacing any signs of dusty terrains, it is then, in that moment, that this Spiti winter expedition will truly make you feel alive and free.&nbsp;</p><p>We will visit all the places that cross people's minds when they hear the name “Spiti” during our sightseeing tour. The <strong>Key Monastery</strong>, locally known as Kye Gompa which was established in the 11th century and still stands tall, like a bejeweled crown adorning Spiti valley. The <strong>Chicham Bridge</strong> which is the highest bridge of Asia and is situated 1000 ft above a deep gorge that flows relentlessly.<strong> Komic</strong>, which is truly one of the most beautiful villages of our country remains unexplored by many travelers but on this trip, you will get the chance to experience life at a different pace in one of the highest villages in India.</p><p><strong>Hikkim</strong>, with its highest post office in the world, will take you back to the good old days when people penned down their emotions on paper and confessed their love in the form of letters. The best part is that the post office is functional and if you are an old school soul, you can send a letter to someone and show them just what heights you will go to, for them.&nbsp;</p><p>We save the most iconic spot for the last and solely for the purpose of making sure that you get to cherish the moment for years to come. <strong>Langza</strong>, home to fossils of many seabed plants serves as the last stop of our Spiti winter expedition. Located on top of a hill, overlooking this tiny hamlet is the statue of Budhha that locals believe protects them from all evil. The colorful statue being the tallest structure in the village does seem like a fierce protector.&nbsp;</p><p>If we were to describe this Spiti valley winter expedition, we'd say that it<strong> </strong>is your ticket to a unique getaway that is a blend of both adventure and serenity. It's an experience worth having and definitely something that a traveler should tick off their bucket list as soon as possible.&nbsp;</p><p>Although there is no way in which Spiti can ever be less beautiful or charming, we personally believe that the snow makes it more magical than it is, adding more to its eternal beauty. Hence the best time to visit Spiti,<strong> </strong>especially when it comes to 4x4 Spiti winter expeditions, is from the months of January to March.&nbsp;</p>",
+      image:
+        'https://www.justwravel.com/uploads/package/original/main-banner/Spiti-winter-Expedition-4X4-JustWravel-1642073759.jpg',
+      included: {
+        transportation: false,
+        accomodation: true,
+        food: true,
+      },
+      numofdays: '9',
+      price: '38000',
+      offer_price: '34000',
+      pick_drop: 'Delhi to Delhi',
+      country: 'India',
+      trek_difficulty: '',
+      best_sellers: '0',
+      eventid: '4029',
+      startdate: '2022-02-19',
+      startmonth: 'February',
+      lastdate: '2022-02-27',
+      itinerary_key: '0',
+      eventdates: [
+        {
+          id: '4029',
+          startdate: '2022-02-19',
+          lastdate: '2022-02-27',
+          packageid: '435',
+          itinerary_key: '0',
+          seat: '2',
+        },
+      ],
+    },
+    {
+      id: '435',
+      location: 'Spiti',
+      state: 'Himachal Pradesh',
+      title: 'Spiti winter Expedition 4X4',
+      slug: 'Spiti-winter-Expedition-4X4',
+      category: 'road-trip backpacking expedition',
+      description:
+        "<p>A cold desert adorned by mountainous valleys is how one describes Spiti Valley in a nutshell but in its embrace, one can find some of the most surreal panoramic views, ancient monasteries offering you serenity and an abundance of trekking trails.</p><p>Life moves at a slow pace in the “middle land” with herds of Himalayan blue sheep nibbling on grass, the local farmers collecting their crops and monks silently chanting the name of Buddha in the form of a sacred prayer. The air is different in Spiti, pure and filled with peace. Simply breathing it in would rejuvenate your inner self and it’s an experience worth having.&nbsp;</p><p>However with this<strong> Spiti winter expedition 4x4,</strong> we show you a different side of Spiti. We take you to a different world altogether , a world where you get to witness the magic of nature in the form of mesmerizing valleys, majestic mountains, and wicked trails all covered in a thick blanket of snow that is spread throughout the land, as far as your eyes can see.&nbsp;</p><p>In this <strong>Spiti winter expedition, </strong>we spice things up even more by increasing the stakes. It is no secret that the roads of Spiti valley are hostile at best, the paths seemed to be carved out with a ruggedness that isn't found in many places and yet there is no greater feeling than off-roading on these tough terrains.&nbsp;</p><p>It's a challenge worth taking up on but only for those who are bold enough to do it. Since normal tempo travelers don't give the adventure enthusiasts the adrenaline rush that comes with driving on the rocky trails, we take things up a notch by taking you on a road trip to Spiti Valley by 4 wheelers<strong> </strong>which means it's a four wheel drive to Spiti all the way from Delhi<strong> </strong>in a vehicle that can overcome all the hurdles that the roads of Spiti has to offer.</p><p>We begin our journey from Delhi to Shimla where the trip captains conduct a brief session and provide all the necessary information that you’d need to know before embarking on the trip. The route from Shimla is better when it comes to Spiti winter expeditions. One of the reasons being the scenic views but also because the slow and steady ascend to higher altitude will make your body adapt to your surroundings. As our next stop Chitkul is situated at a height of more than 11,000ft, it's better to take the Hindustan - Tibet highway for better acclimatization.&nbsp;&nbsp;</p><p><strong>Chitkul</strong> is renowned for being the last village of India and has gained a lot of popularity among travelers, but it's only when people visit the village and breathe in the fresh air, do they realize that the best part about this hamlet is that it has the cleanest air in the entire country. It is, quite literally, a breath of fresh air that one appreciates after spending most of their days in the metropolitan cities.&nbsp;</p><p>We know that every trip becomes ten times more memorable when you have people to share your exciting experiences with, to share stories with people who share the same passion that you do and to make sure that you get to form connections with fellow travelers, we indulge in group bonding activities. The best part about these activities is that after indulging in these games, people become more comfortable with each other and a sense of ease fills everyone, making the long journey ahead seem short and sweet.&nbsp;</p><p>Our next destination <strong>Kalpa </strong>is known for its picturesque landscapes but the trail leading up to it is equally beautiful. The town of Reckong Peo in Kinnaur, famous for its apple orchards and rich culture that has been preserved by the locals for years serves as an excellent pit stop. Not to mention that it gives a small glimpse into the journey that awaits us. Upon reaching Kalpa, we make sure that you get to explore some of the best places in<strong> </strong>Kalpa including the 3000 year old Kalpa monastery and the suicide point which is named so because of the fear it induces in the heart of the travelers with it's steep cliff and narrow roads. Not to mention that on one end, standing mighty are rugged mountains.&nbsp;</p><p>The view from suicide point is to die for and since during this winter expedition to Spiti valley, the entire Kinnaur ranges will be covered in snow, the landscape would be more beautiful than any words can ever describe.</p><p>After spending a night in Kalpa surrounded by snow laden mountains, we will be moving towards our next destination which is<strong> Nako</strong>. Providing the best site for a pit-stop is the tiny hamlet of Khab which serves as the confluence of the Sutlej and Spiti river. Even though it is just a stop along the way, driving through a snow covered<strong> Khab </strong>with the river flowing alongside makes it one of the best parts of this Spiti winter expedition.&nbsp;&nbsp;</p><p>Our next stop, Nako which is nestled in the heart of the trans Himalayan ranges in the Hangrang Valley with Reo Purgyal as its backdrop, is surely going to take your breath away. The tiny hamlet is situated on the Indo-China Border with the serene Nako lake and the 11th century Nako monastery in its embrace. The influence of Buddhism is ever present in the valley but it's only when you are in these villages, meeting the locals, getting in touch with their customs and learning their stories, do you start to feel the true essence of Spiti Valley filling you from within.</p><p><strong>Kaza</strong>, our next destination is where you will see a blend of white landscapes that involve majestic mountains, meadows, streams and even barren terrains all adorned by the snow. The monochromatic contrast of the whiteness of the snow against the cobalt blue skies is truly breathtaking and when you are in the very center of such a magical wonder, all kinds of emotion run through you. Kaza is known for its vibrant festivities, its monasteries and its rich culture. As well as being the heart of Spiti, it is also the commercial center of the valley and the link between the different districts.&nbsp;&nbsp;&nbsp;</p><p>Finally, after overcoming all the bumps in the road, we will be in the center of it all, experiencing the winter wonderland that is Spiti in all its glory. Under the starry night skies, surrounded by lofty mountains that no longer have a patch of brown on them, with the pearly snowflakes replacing any signs of dusty terrains, it is then, in that moment, that this Spiti winter expedition will truly make you feel alive and free.&nbsp;</p><p>We will visit all the places that cross people's minds when they hear the name “Spiti” during our sightseeing tour. The <strong>Key Monastery</strong>, locally known as Kye Gompa which was established in the 11th century and still stands tall, like a bejeweled crown adorning Spiti valley. The <strong>Chicham Bridge</strong> which is the highest bridge of Asia and is situated 1000 ft above a deep gorge that flows relentlessly.<strong> Komic</strong>, which is truly one of the most beautiful villages of our country remains unexplored by many travelers but on this trip, you will get the chance to experience life at a different pace in one of the highest villages in India.</p><p><strong>Hikkim</strong>, with its highest post office in the world, will take you back to the good old days when people penned down their emotions on paper and confessed their love in the form of letters. The best part is that the post office is functional and if you are an old school soul, you can send a letter to someone and show them just what heights you will go to, for them.&nbsp;</p><p>We save the most iconic spot for the last and solely for the purpose of making sure that you get to cherish the moment for years to come. <strong>Langza</strong>, home to fossils of many seabed plants serves as the last stop of our Spiti winter expedition. Located on top of a hill, overlooking this tiny hamlet is the statue of Budhha that locals believe protects them from all evil. The colorful statue being the tallest structure in the village does seem like a fierce protector.&nbsp;</p><p>If we were to describe this Spiti valley winter expedition, we'd say that it<strong> </strong>is your ticket to a unique getaway that is a blend of both adventure and serenity. It's an experience worth having and definitely something that a traveler should tick off their bucket list as soon as possible.&nbsp;</p><p>Although there is no way in which Spiti can ever be less beautiful or charming, we personally believe that the snow makes it more magical than it is, adding more to its eternal beauty. Hence the best time to visit Spiti,<strong> </strong>especially when it comes to 4x4 Spiti winter expeditions, is from the months of January to March.&nbsp;</p>",
+      image:
+        'https://www.justwravel.com/uploads/package/original/main-banner/Spiti-winter-Expedition-4X4-JustWravel-1642073759.jpg',
+      included: {
+        transportation: true,
+        accomodation: true,
+        food: true,
+      },
+      numofdays: '9',
+      price: '38000',
+      offer_price: '34000',
+      pick_drop: 'Delhi to Delhi',
+      country: 'India',
+      trek_difficulty: '',
+      best_sellers: '0',
+      eventid: '4029',
+      startdate: '2022-02-19',
+      startmonth: 'February',
+      lastdate: '2022-02-27',
+      itinerary_key: '0',
+      eventdates: [
+        {
+          id: '4029',
+          startdate: '2022-02-19',
+          lastdate: '2022-02-27',
+          packageid: '435',
+          itinerary_key: '0',
+          seat: '2',
+        },
+      ],
+    },
+  ];
+
+  const renderTripCards = tripData.map((trip) => {
+    return <TripCard key={trip.id} trip={trip} />;
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <div className='container mx-auto flex gap-8 flex-wrap p-8 justify-between'>
+        {renderTripCards}
+      </div>
     </div>
   );
 }
