@@ -26,8 +26,8 @@ function TripCard({ trip }) {
       return data.mouseY / data.height;
     };
     const cardStyle = () => {
-      const rX = mousePX() * 10;
-      const rY = mousePY() * -10;
+      const rX = mousePX() * 20;
+      const rY = mousePY() * -20;
       return `rotateY(${rX}deg) rotateX(${rY}deg)`;
     };
     const cardBgTransform = () => {
@@ -37,7 +37,7 @@ function TripCard({ trip }) {
     };
 
     card.current.addEventListener('mouseenter', function () {
-      cardBgImage.current.classList.add('scale-125');
+      cardBgImage.current.classList.add('scale-110');
     });
 
     card.current.addEventListener('mousemove', function (e) {
@@ -49,7 +49,7 @@ function TripCard({ trip }) {
     });
 
     card.current.addEventListener('mouseleave', function () {
-      cardBgImage.current.classList.remove('scale-125');
+      cardBgImage.current.classList.remove('scale-110');
       cardBg.current.setAttribute('style', `transform: translate(0,0);`);
       card.current.setAttribute('style', `transform: rotate(0);`);
     });
@@ -107,7 +107,7 @@ function TripCard({ trip }) {
             </span>
           </div>
           <div className=''>
-            <h1 className='text-white text-2xl font-bold tracking-wider'>
+            <h1 className='text-white text-2xl font-bold tracking-wider mr-4'>
               {trip.title}
             </h1>
 
