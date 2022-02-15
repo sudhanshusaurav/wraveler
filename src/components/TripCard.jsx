@@ -153,7 +153,7 @@ function TripCard({ trip }) {
           ref={cardBgImage}
           src={trip.image}
           alt='bg'
-          className='w-full h-full object-cover transition-all duration-300'
+          className='w-full h-full object-cover'
         />
       </div>
       <div className='w-full h-full absolute top-0 left-0 bg-black/40 z-[-1]'></div>
