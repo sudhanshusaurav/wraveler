@@ -79,7 +79,7 @@ function TripCard({ trip }) {
 
     return (
       <>
-        {trip.eventdates.length - 1 === index && index < 4
+        {trip.eventdates.length - 1 === index
           ? `${formatted_date}`
           : `${formatted_date}, `}
       </>
